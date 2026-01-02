@@ -101,6 +101,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "axum-smoke-test"
+version = "0.1.0"
+dependencies = [
+ "anvil-adapter-axum",
+ "anvil-core",
+ "axum",
+ "tokio",
+ "tracing",
+ "tracing-subscriber",
+]
+
+[[package]]
 name = "bytes"
 version = "1.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
