@@ -1,5 +1,6 @@
 use crate::lifecycle::{Lifecycle, LifecycleState};
 use crate::shutdown::ShutdownCoordinator;
+use crate::health::HealthState;
 
 /// Core startup orchestrator.
 ///
@@ -8,6 +9,7 @@ use crate::shutdown::ShutdownCoordinator;
 pub struct Startup {
     lifecycle: Lifecycle,
     shutdown_coordinator: ShutdownCoordinator,
+    health: HealthState,
 }
 
 impl Startup {
@@ -16,12 +18,18 @@ impl Startup {
         Self {
             lifecycle: Lifecycle::new(),
             shutdown_coordinator: ShutdownCoordinator::new(),
+            health: HealthState::new(),
         }
     }
 
     /// Access lifecycle state.
     pub fn lifecycle(&self) -> &Lifecycle {
         &self.lifecycle
+    }
+
+    /// Access health state.
+    pub fn health(&self) -> &HealthState {
+        &self.health
     }
 
     /// Access shutdown coordinator.
@@ -32,13 +40,16 @@ impl Startup {
     /// Mark service as ready.
     pub fn mark_ready(&self) {
         self.lifecycle.transition(LifecycleState::Ready);
+        self.health.mark_ready();   
     }
 
     /// Execute shutdown flow.
     pub async fn shutdown_now(self) {
         self.lifecycle
             .transition(LifecycleState::ShuttingDown);
-
+        self.health.mark_not_ready();
+        self.health.mark_dead();
+        
         self.shutdown_coordinator.shutdown().await;
 
         self.lifecycle

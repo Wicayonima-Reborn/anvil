@@ -2,6 +2,7 @@ pub mod config;
 pub mod lifecycle;
 pub mod shutdown;
 pub mod startup;
+pub mod health;
 
 use lifecycle::{Lifecycle, LifecycleState};
 use shutdown::ShutdownCoordinator;
