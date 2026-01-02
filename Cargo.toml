@@ -1,6 +1,7 @@
 [workspace]
 members = [
-  "crates/*"
+    "crates/anvil-core",
+    "crates/anvil-adapter-axum",
 ]
 
 resolver = "2"

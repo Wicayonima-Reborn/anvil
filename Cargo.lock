@@ -12,6 +12,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "anvil-adapter-axum"
+version = "0.1.0"
+dependencies = [
+ "anvil-core",
+ "axum",
+]
+
+[[package]]
+name = "anvil-core"
+version = "0.1.0"
+dependencies = [
+ "tokio",
+ "tracing",
+ "tracing-subscriber",
+]
+
+[[package]]
 name = "async-trait"
 version = "0.1.89"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -81,23 +98,6 @@ dependencies = [
  "tower-layer",
  "tower-service",
  "tracing",
-]
-
-[[package]]
-name = "backend-adapter-axum"
-version = "0.1.0"
-dependencies = [
- "axum",
- "backend-core",
-]
-
-[[package]]
-name = "backend-core"
-version = "0.1.0"
-dependencies = [
- "tokio",
- "tracing",
- "tracing-subscriber",
 ]
 
 [[package]]
