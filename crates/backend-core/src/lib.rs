@@ -5,14 +5,17 @@ pub mod startup;
 pub mod health;
 pub mod observability;
 
-use lifecycle::{Lifecycle, LifecycleState};
+use lifecycle::{Lifecycle, LifecycleError, LifecycleState};
 use shutdown::ShutdownCoordinator;
 
 pub async fn shutdown_flow(
     lifecycle: &Lifecycle,
     coordinator: ShutdownCoordinator,
-) {
-    lifecycle.transition(LifecycleState::ShuttingDown);
+) -> Result<(), LifecycleError> {
+    lifecycle.transition(LifecycleState::ShuttingDown)?;
+
     coordinator.shutdown().await;
-    lifecycle.transition(LifecycleState::Terminated);
+
+    lifecycle.transition(LifecycleState::Terminated)?;
+    Ok(())
 }
