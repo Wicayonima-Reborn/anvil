@@ -3,6 +3,7 @@ pub mod lifecycle;
 pub mod shutdown;
 pub mod startup;
 pub mod health;
+pub mod observability;
 
 use lifecycle::{Lifecycle, LifecycleState};
 use shutdown::ShutdownCoordinator;
