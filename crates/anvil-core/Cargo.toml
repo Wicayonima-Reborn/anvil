@@ -6,7 +6,7 @@ edition = "2024"
 description = "Framework-agnostic infrastructure foundation for Rust backend services"
 license = "Apache-2.0"
 repository = "https://github.com/Wicayonima-Reborn/anvil"
-readme = "../../README.md"
+readme = "README.md"
 
 keywords = ["backend", "infrastructure", "lifecycle", "health", "shutdown"]
 categories = ["web-programming", "development-tools"]

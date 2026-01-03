@@ -6,7 +6,7 @@ edition = "2024"
 description = "Axum adapter for the anvil-core infrastructure foundation"
 license = "Apache-2.0"
 repository = "https://github.com/Wicayonima-Reborn/anvil"
-readme = "../../README.md"
+readme = "README.md"
 
 keywords = ["axum", "backend", "health", "lifecycle"]
 categories = ["web-programming"]
