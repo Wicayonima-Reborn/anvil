@@ -1,12 +1,27 @@
 # Anvil
+![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)
+![Rust](https://img.shields.io/badge/rust-2024%20edition-orange)
+![Status](https://img.shields.io/badge/status-active%20development-brightgreen)
+![Framework Agnostic](https://img.shields.io/badge/framework-agnostic-informational)
 
-## Overview
+> **A framework-agnostic backend foundation for Rust services**
 
-Anvil is a framework-agnostic backend foundation for Rust services. The project provides shared infrastructure layers that are commonly required by production backend services, without introducing a new web framework, runtime, or transport abstraction.
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Wicayonima-Reborn/anvil/main/assets/anvil-lleeef.webp" alt="Anvil Logo" width="240" />
+</p>
 
-The goal of this project is to improve consistency, reliability, and developer experience across Rust backend services by extracting non-business concerns into a stable, composable foundation.
+<p align="center">
+  <strong>Anvil</strong><br/>
+  <em>Framework-agnostic backend foundation for Rust services</em>
+</p>
 
-Anvil is designed to integrate with existing Rust web frameworks such as Axum or Actix through thin adapters, while keeping the core strictly independent of any framework.
+---
+
+Anvil provides shared infrastructure layers that are commonly required by production Rust backend services, without introducing a new web framework, runtime, or transport abstraction.
+
+The goal of Anvil is to improve consistency, reliability, and developer experience across Rust services by extracting non-business concerns into a stable, composable foundation.
+
+Anvil integrates with existing Rust web frameworks such as Axum or Actix through thin adapters, while keeping the core strictly independent of any framework.
 
 ---
 
@@ -120,8 +135,6 @@ The foundation does not start servers or manage runtimes.
 
 ## Quick Start (Minimal Example)
 
-Below is a minimal example showing how to integrate **anvil-core** with an Axum service using the Axum adapter.
-
 ### Cargo.toml
 
 ```toml
@@ -146,21 +159,16 @@ use anvil_core::health::DegradationReason;
 
 #[tokio::main]
 async fn main() {
-    // Initialize observability (explicit, opt-in)
     tracing_subscriber::fmt::init();
 
-    // Create startup orchestrator
     let startup = Startup::new();
 
-    // Example: mark service as not ready until a dependency is available
     startup.health().add_degradation(
         DegradationReason::new("db_unavailable", "database not connected"),
     );
 
-    // Build Axum router from adapter
     let app = anvil_adapter_axum::health_routes(startup.health());
 
-    // Simulate startup phases
     tokio::spawn({
         let startup = startup;
         async move {
@@ -187,13 +195,6 @@ async fn main() {
     .unwrap();
 }
 ```
-
-This example demonstrates:
-
-* Explicit lifecycle transitions
-* Health readiness management with degradation reasons
-* Framework integration via a thin adapter
-* No framework or runtime ownership inside the core
 
 ---
 
